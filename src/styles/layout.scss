@@ -1,0 +1,227 @@
+@charset "UTF-8";
+
+@mixin flex($direction:column, $inline:block) {
+  display: if($inline==block, flex, inline-flex);
+  flex-direction: $direction;
+  flex-wrap: wrap;
+}
+
+@mixin font-dpr($font-size) {
+  font-size: $font-size;
+
+  [data-dpr="2"] & {
+    font-size: $font-size * 2;
+  }
+
+  [data-dpr="3"] & {
+    font-size: $font-size * 3;
+  }
+}
+
+@mixin border($color:#000, $lineStyle: solid) {
+  border: 1PX $lineStyle $color;
+
+  & {
+    @media screen and (-webkit-min-device-pixel-ratio: 2) {
+      .border {
+        border: 0.5PX $lineStyle $color
+      }
+    }
+
+    @media screen and (-webkit-min-device-pixel-ratio: 3) {
+      .border {
+        border: 0.333333PX $lineStyle $color
+      }
+    }
+  }
+
+
+}
+
+
+@mixin border_1px($type: default, $color: #000, $lineStyle: solid) {
+  position: relative;
+
+  &::after {
+    content: "";
+    box-sizing: border-box;
+    position: absolute;
+
+    @if $type==default {
+      top: 0;
+      left: 0;
+      // width: 100%;
+      // height: 100%;
+      
+
+      @media (-webkit-min-device-pixel-ratio:1),
+      (min-device-pixel-ratio:1) {
+        & {
+          width: 100%;
+          height: 100%;
+          border: 1PX $lineStyle $color;
+          transform: scale(1);
+        }
+      }
+
+      @media (-webkit-min-device-pixel-ratio:2),
+      (min-device-pixel-ratio:2) {
+        & {
+          width: 200%;
+          height: 200%;
+          border: 2PX $lineStyle $color;
+          transform: scale(0.5);
+        }
+      }
+
+      @media (-webkit-min-device-pixel-ratio:3),
+      (min-device-pixel-ratio:3) {
+        & {
+          width: 300%;
+          height: 300%;
+          border: 3PX $lineStyle $color;
+          transform: scale(0.333);
+        }
+      }
+    }
+
+    @else if $type==top {
+      top: 0;
+      left: 0;
+      // width: 200%;
+      // height: 2PX;
+      background: $color;
+      @media (-webkit-min-device-pixel-ratio:1),
+      (min-device-pixel-ratio:1) {
+        & {
+          width: 100%;
+          height: 1PX;
+          transform: scale(1);
+        }
+      }
+
+      @media (-webkit-min-device-pixel-ratio:2),
+      (min-device-pixel-ratio:2) {
+        & {
+          width: 200%;
+          height: 2PX;
+          transform: scale(0.5);
+        }
+      }
+
+      @media (-webkit-min-device-pixel-ratio:3),
+      (min-device-pixel-ratio:3) {
+        & {
+          width: 300%;
+          height: 3PX;
+          transform: scale(0.333);
+        }
+      }
+    }
+
+    @else if $type==bottom {
+      bottom: 0;
+      left: 0;
+      // width: 200%;
+      // height: 2PX;
+      background: $color;
+      @media (-webkit-min-device-pixel-ratio:1),
+      (min-device-pixel-ratio:1) {
+        & {
+          width: 100%;
+          height: 1PX;
+          transform: scale(1);
+        }
+      }
+
+      @media (-webkit-min-device-pixel-ratio:2),
+      (min-device-pixel-ratio:2) {
+        & {
+          width: 200%;
+          height: 2PX;
+          transform: scale(0.5);
+        }
+      }
+
+      @media (-webkit-min-device-pixel-ratio:3),
+      (min-device-pixel-ratio:3) {
+        & {
+          width: 300%;
+          height: 3PX;
+          transform: scale(0.333);
+        }
+      }
+    }
+
+    @else if $type==left {
+      top: 0;
+      left: 0;
+      // width: 2PX;
+      // height: 200%;
+      background: $color;
+      @media (-webkit-min-device-pixel-ratio:1),
+      (min-device-pixel-ratio:1) {
+        & {
+          width: 1PX;
+          height: 100%;
+          transform: scale(1);
+        }
+      }
+
+      @media (-webkit-min-device-pixel-ratio:2),
+      (min-device-pixel-ratio:2) {
+        & {
+          width: 2PX;
+          height: 200%;
+          transform: scale(0.5);
+        }
+      }
+
+      @media (-webkit-min-device-pixel-ratio:3),
+      (min-device-pixel-ratio:3) {
+        & {
+          width: 3PX;
+          height: 300%;
+          transform: scale(0.333);
+        }
+      }
+    }
+
+    @else if $type==right {
+      top: 0;
+      right: 0;
+      // width: 2PX;
+      // height: 200%;
+      background: $color;
+      @media (-webkit-min-device-pixel-ratio:1),
+      (min-device-pixel-ratio:1) {
+        & {
+          width: 1PX;
+          height: 100%;
+          transform: scale(1);
+        }
+      }
+
+      @media (-webkit-min-device-pixel-ratio:2),
+      (min-device-pixel-ratio:2) {
+        & {
+          width: 2PX;
+          height: 200%;
+          transform: scale(0.5);
+        }
+      }
+
+      @media (-webkit-min-device-pixel-ratio:3),
+      (min-device-pixel-ratio:3) {
+        & {
+          width: 3PX;
+          height: 300%;
+          transform: scale(0.333);
+        }
+      }
+    }
+
+    // transform: scale(0.5);
+    transform-origin: 0 0;
+  }
+}
