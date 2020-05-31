@@ -1,31 +1,33 @@
 <template>
-  <div class="hello">
-    <div class="divBox">
-      23432423
+  <div :class="$style.hello">
+    <div :class="$style.divBox">23432423</div>
+    <div :class="$style.box2">
+      <div :class="$style.left">a</div>
+      <div :class="$style.right">b</div>
     </div>
-    <div class="box2">
-
-    </div>
-    <div class="box3">
-
-    </div>
-    <div class="msg-wrap">
-      <ul :class="['msg-box']" :style="isMove?msgBoxStyle:''">
-        <li class="msg-item" v-for="(item) in msgList" :key="item.id" v-html="item.value"></li>
+    <div :class="$style.box3"></div>
+    <div :class="$style['msg-wrap']">
+      <ul :class="$style['msg-box']" :style="isMove?msgBoxStyle:''">
+        <li
+          :class="['msg-item',$style['item']]"
+          v-for="(item) in msgList"
+          :key="item.id"
+          v-html="item.value"
+        ></li>
       </ul>
     </div>
-    <div class="c1">
-      <img src="../assets/img/1.jpg" alt class="box" />
+    <div :class="$style.c1" id="c1">
+      <img src="../assets/img/1.jpg" alt :class="$style.box" />
     </div>
-    <div id class="feng">
-      <div class="ww">选项卡一</div>
-      <div class="ww">选项卡二</div>
-      <div class="ww">选项卡三</div>
-      <div class="ww">选项卡四</div>
-      <div class="ww">选项卡五</div>
-      <div class="ww">选项卡六</div>
-      <div class="ww">选项卡七</div>
-      <div class="ww">选项卡八</div>
+    <div :class="$style.feng">
+      <div :class="$style.ww">选项卡一</div>
+      <div :class="$style.ww">选项卡二</div>
+      <div :class="$style.ww">选项卡三</div>
+      <div :class="$style.ww">选项卡四</div>
+      <div :class="$style.ww">选项卡五</div>
+      <div :class="$style.ww">选项卡六</div>
+      <div :class="$style.ww">选项卡七</div>
+      <div :class="$style.ww">选项卡八</div>
     </div>
   </div>
 </template>
@@ -88,8 +90,8 @@ export default {
     sleep(3).then(() => {
       this.carouselFunc();
     });
-    const oC1 = document.querySelector(".c1");
-    const oBox = oC1.querySelector(".box");
+    const oC1 = document.querySelector("#c1");
+    const oBox = oC1.querySelector("img");
     console.log(oBox.offsetWidth);
     oC1.scrollLeft = 502;
     window.addEventListener(
@@ -119,10 +121,12 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss" scoped>
+<style lang="scss" module>
 @import "../styles/element.scss";
 .hello {
   overflow: hidden;
+  // background: green;
+  // font-size: 20px;
 }
 .divBox {
   width: 100px;
@@ -138,6 +142,13 @@ export default {
   height: 100px;
   margin-left: 200px;
   @include border_1px(left);
+  @include clearfix();
+  &>.left{
+    float: left;
+  }
+  &>.right{
+    float:right;
+  }
 }
 .box2{
   width: 100px;
@@ -154,7 +165,7 @@ export default {
     margin: 0;
     padding: 0;
 
-    .msg-item {
+    .item {
       display: block;
       padding: 10px 0;
       text-align: center;

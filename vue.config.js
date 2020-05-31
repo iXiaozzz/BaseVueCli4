@@ -3,7 +3,7 @@
 const path = require('path')
 const sourceMap = process.env.NODE_ENV === 'development'
 const autoprefixer = require('autoprefixer')
-const pxtorem = require('postcss-pxtorem')
+// const pxtorem = require('postcss-pxtorem')
 // const vConsolePlugin = require('vconsole-webpack-plugin') // 引入 移动端模拟开发者工具
 const CompressionPlugin = require('compression-webpack-plugin') // Gzip
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin // Webpack包文件分析器
@@ -54,15 +54,26 @@ module.exports = {
     productionSourceMap: sourceMap,
     // css相关配置
     css: {
+        requireModuleExtension: false,
+
         // 是否使用css分离插件 ExtractTextPlugin
-        extract: true,
+        extract: {
+            filename: "style/[name].[hash:8].css",
+            chunkFilename: "style/[name].[hash:8].css"
+        },
         // 开启 CSS source maps?
         sourceMap: false,
         // css预设器配置项
         loaderOptions: {
+            css: {
+                modules: {
+                    localIdentName: '[path][name]-[local]-[hash:base64:8]'
+                },
+                localsConvention: 'camelCaseOnly'
+            },
             postcss: {
                 plugins: [
-                    // autoprefixer(),
+                    autoprefixer(),
                     // pxtorem({
                     //     rootValue: 54,
                     //     propList: ['*']
@@ -71,8 +82,6 @@ module.exports = {
             }
 
         },
-        // 启用 CSS modules for all css / pre-processor files.
-        modules: false
     },
     parallel: require('os').cpus().length > 1,
     // PWA 插件相关配置
